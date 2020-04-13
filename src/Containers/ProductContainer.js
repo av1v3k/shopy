@@ -8,8 +8,8 @@ function ProductContainer(props) {
 
 
     const fetchData = () => {
-        // fetch('https://api.jsonbin.io/b/5e8c3ad0ff9c906bdf1d5380')
-        fetch('../data/sample.json')
+        fetch('https://api.jsonbin.io/b/5e8c3ad0ff9c906bdf1d5380')
+        //fetch('../data/sample.json')
             .then((resp) => resp.json())
             .then((data) => {
                 props.setLoaded(false);
