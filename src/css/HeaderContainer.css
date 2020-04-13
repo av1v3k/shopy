@@ -1,0 +1,6 @@
+/*  This file can import other CSS files specific to component. */
+
+header {
+    background: grey;
+    min-height:50px;
+}

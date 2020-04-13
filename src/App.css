@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
+html,
+body,
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.se-range {
+    display: inline-block;
+    position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.se-sort {
+    display: inline-block;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.se-product-wrapper {
+    display: inline-block;
+    list-style: none;
+    padding: 15px;
+    border: 1px solid green;
+    margin: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.se-product {
+    min-height: 150px;
+    display: inline-block;
+    position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.se-product--dataholder {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 125px;
+}
+
+.se-product--add {
+    border-radius: 10px;
+    background: #F7AD24;
+    color: #000000;
+    padding: 4%;
+    display: block;
+    margin: 0 auto;
+}
+
+.se-product--add:hover {
+    color: #FFFFFF;
+}
+
+.se-product--add:focus {
+    outline: none;
+}
+
+.se-product--imageholder {
+    width: 100%;
+    min-height: 100px;
+}
+
+.se-product--display {
+    text-decoration: line-through;
+    margin: 0 5%;
+    color: grey;
+}
+
+.se-product--discount {
+    font-size: 8px;
+}
+
+span.se-product--actual::before{
+    content:'\20B9';
 }
