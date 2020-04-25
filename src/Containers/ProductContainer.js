@@ -8,9 +8,14 @@ function ProductContainer(props) {
 
 
     const fetchData = () => {
+<<<<<<< HEAD
         // fetch('https://api.jsonbin.io/b/5e8c3ad0ff9c906bdf1d5380')
         fetch('https://jsonplaceholder.typicode.com/users')
         // fetch('../data/sample.json')
+=======
+        fetch('https://api.jsonbin.io/b/5e8c3ad0ff9c906bdf1d5380')
+        //fetch('../data/sample.json')
+>>>>>>> 04c2b9c6fc973d30991b4bfce01e590d290b2ef6
             .then((resp) => resp.json())
             .then((data) => {
                 props.setLoaded(false);
