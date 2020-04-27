@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { dataLoadingAction, dataLoadedAction } from '../actions';
+import { dataLoadingAction, dataLoadedAction, cartAddAction } from '../actions';
 import ProductList from '../Components/ProductList';
 import Loading from '../Components/Loading';
 
@@ -8,9 +8,7 @@ function ProductContainer(props) {
 
 
     const fetchData = () => {
-        // fetch('https://api.jsonbin.io/b/5e8c3ad0ff9c906bdf1d5380')
-        fetch('https://jsonplaceholder.typicode.com/users')
-        // fetch('../data/sample.json')
+        fetch('https://my-json-server.typicode.com/av1v3k/shopy/items')
             .then((resp) => resp.json())
             .then((data) => {
                 props.setLoaded(false);
@@ -24,13 +22,20 @@ function ProductContainer(props) {
         fetchData();
     }, []);
 
+    const _onClickAddData = (data) => {
+        debugger;
+        if (data) {
+            props.putData(data);
+        }
+    }
+
     return (
         <article>
             {
                 props.isLoading ?
                     <Loading isLoading={props.isLoading} />
                     :
-                    <ProductList data={props.loadedData} />
+                    <ProductList data={props.loadedData} addData={_onClickAddData} />
 
             }
         </article>
@@ -51,6 +56,9 @@ const mapDispatchToProps = dispatch => {
         },
         setData: data => {
             dispatch(dataLoadedAction(data))
+        },
+        putData: (data) => {
+            dispatch(cartAddAction(data))
         }
     };
 };

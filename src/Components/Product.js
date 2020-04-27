@@ -13,7 +13,16 @@ function Product(props) {
                     <span className="se-product--display">{props.display}</span>
                     <span className="se-product--discount">{`${discount} % off`}</span>
                 </div>
-                <button type="button" className="se-product--add">Add to cart</button>
+                <button type="button"
+                    className="se-product--add"
+                    onClick={() => {
+                        return props.addData(
+                            {
+                                name: props.name
+                            }
+                        )
+                    }}
+                >Add to cart</button>
             </div>
         </li>
     );

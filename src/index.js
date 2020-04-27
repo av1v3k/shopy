@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import { headerReducer, productReducer } from './reducers';
+import { headerReducer, productReducer, cartReducer } from './reducers';
 import './index.css';
 import App from './App';
 
@@ -10,7 +10,8 @@ import App from './App';
 const store = createStore(
     combineReducers({
         headerReducer,
-        productReducer
+        productReducer,
+        cartReducer
     })
 );
 
