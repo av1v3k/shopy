@@ -62,21 +62,24 @@ function addAndCommit(version) {
   git.pull("origin", `${BRANCH_NAME}`, (err1, result1) => {
     if (!err1) {
       console.log(`GIT:Adding...`);
-      git.add("./*", (err2, result2) => {
-        if (!err2) {
-          console.log(`GIT:Committing...`);
-          git.commit(
-            `chore(release): ${version}`,
-            [packageFile],
-            (err3, result3) => {
-              if (err3) {
-                return deferred.reject(new Error(`Problem in ${version}`));
-              } else {
-                return deferred.resolve(version);
-              }
-            }
-          );
-        }
+      // git.add("./*", (err2, result2) => {
+      //   if (!err2) {
+      //     console.log(`GIT:Committing...`);
+      //     git.commit(
+      //       `chore(release): ${version}`,
+      //       [packageFile],
+      //       (err3, result3) => {
+      //         if (err3) {
+      //           return deferred.reject(new Error(`Problem in ${version}`));
+      //         } else {
+      //           return deferred.resolve(version);
+      //         }
+      //       }
+      //     );
+      //   }
+      // });
+      git.add("./*").commit(`chore(release): ${version}`, (data) => {
+        return deferred.resolve(version);
       });
     } else {
       return deferred.reject(new Error(`Pull Issue`));
