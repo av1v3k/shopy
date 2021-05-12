@@ -8,8 +8,19 @@ const child_process = require("child_process");
 let packageFile = path.join(__dirname, "package.json");
 //TODO: to update in dist package.json file too.
 let packageversion = require(`${packageFile}`).version;
-let DESCRIPTION = 'dummy test';
-let BRANCH_NAME = 'master';
+let DESCRIPTION = "dummy test";
+let BRANCH_NAME = "master";
+
+if (packageversion) {
+  console.log("before", packageversion);
+  let packagearr = packageversion.split(".");
+  let temp = +packagearr[2];
+  temp = temp + 1;
+  packagearr[2] = temp;
+  console.log(packagearr);
+  console.log("after", packagearr.join("."));
+  packageversion = packagearr.join(".");
+}
 
 function bump(version) {
   replace({
@@ -41,12 +52,13 @@ function installPackage(ver) {
 }
 
 function addAndCommit(version) {
+  var deferred = q.defer();
+
   if (!version) {
     console.log("No valid version!");
     return deferred.reject(new Error(`Problem in ${version}`));
   }
 
-  var deferred = q.defer();
   git.pull("origin", `${BRANCH_NAME}`, (err1, result1) => {
     if (!err1) {
       console.log(`GIT:Adding...`);
@@ -59,6 +71,8 @@ function addAndCommit(version) {
             (err3, result3) => {
               if (err3) {
                 return deferred.reject(new Error(`Problem in ${version}`));
+              } else {
+                return deferred.resolve(version);
               }
             }
           );
@@ -75,7 +89,7 @@ function pushToBranch(version) {
   let deferred = q.defer();
 
   console.log(`GIT:Push --> ${BRANCH_NAME}`);
-  git.push(["origin", `HEAD:refs/heads/${BRANCH_NAME}`], (err, result) => {
+  git.push(["-u", "origin", `${BRANCH_NAME}`], (err, result) => {
     if (!err) {
       console.log(`GIT:Push-Tags`);
       // git.pushTags(`origin`, () => {
@@ -93,12 +107,12 @@ function pushToBranch(version) {
 }
 
 function tagPackage(version) {
+  var deferred = q.defer();
+
   if (!version) {
     console.log("No valid version!");
     return deferred.reject(new Error(`Problem in ${version}`));
   }
-
-  var deferred = q.defer();
 
   console.log("Tagging...");
   git.addAnnotatedTag(`v${version}`, `${DESCRIPTION}`, (err, result) => {
@@ -130,7 +144,6 @@ function pack(version) {
     } else {
       let tgzFile = stdout.replace(/(\n|\r)/gi, "");
       console.log(`NPM:Packed File Name: ${tgzFile}`);
-    
     }
   });
   return deferred.promise;
