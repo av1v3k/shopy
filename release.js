@@ -9,7 +9,7 @@ let packageFile = path.join(__dirname, "package.json");
 //TODO: to update in dist package.json file too.
 let packageversion = require(`${packageFile}`).version;
 let DESCRIPTION = "dummy test";
-let BRANCH_NAME = "testing";
+let BRANCH_NAME = "master";
 
 if (packageversion) {
   console.log("before", packageversion);
